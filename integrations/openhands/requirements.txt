@@ -1,0 +1,4 @@
+# Official packages. Keep synchronized with harnessadapt.openhands.VERSION.
+# Install ONLY in the isolated Python 3.12 runtime, not in the Slime environment.
+openhands-sdk==1.54.0
+openhands-tools==1.54.0

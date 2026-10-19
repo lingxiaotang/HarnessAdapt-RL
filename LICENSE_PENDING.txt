@@ -1,0 +1,6 @@
+No new license has been selected for the project-authored code in this package.
+Publication of this artifact does not grant a blanket license for that code.
+The maintainers must select a license before describing it as open-source.
+
+The update45 model retains the accompanying upstream model LICENSE. Third-party
+dependencies retain their own licenses; see THIRD_PARTY_NOTICES.md.

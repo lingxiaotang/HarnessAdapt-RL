@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "harness_release": 2,
+  "bank_release": 1,
+  "name": "miniswe_repair_h2_delivery_evidence",
+  "tools": [
+    "read_file",
+    "grep",
+    "edit_file",
+    "write_file",
+    "view_diff",
+    "prepare_patch",
+    "run_check",
+    "restore_file"
+  ],
+  "hooks": [
+    "budget_submission",
+    "progress_guard",
+    "validation_feedback",
+    "delivery_evidence",
+    "recovery_hint"
+  ],
+  "skill_injection_style": "natural",
+  "allow_empty_meta_skills": true,
+  "submission_protocol": "miniswe_echo",
+  "submission_marker": "COMPLETE_TASK_AND_SUBMIT_FINAL_OUTPUT",
+  "explicit_submission_required": true,
+  "fixed_tools_hooks": true,
+  "general_skill_ids": [
+    "artifact_integrity",
+    "hypothesis_driven_repair",
+    "validation_evidence",
+    "bounded_investigation",
+    "finish_on_evidence",
+    "requirement_alignment",
+    "bounded_semantic_review",
+    "preserve_surrounding_contract",
+    "resolve_contradictory_evidence",
+    "precise_contract_and_artifact"
+  ],
+  "meta_skills": [],
+  "general_skill_carrier": "instance_template.md; skills.md is the human-readable source copy",
+  "parent_release": "miniswe_repair_h1_delivery_contract",
+  "cognitive_review": "Same solver; delivery_evidence summarizes observed facts on successful prepare_patch (at most 3 times, only after a new source edit); advisory, not a submission gate or extra inference call; recovery_hint fires at most twice, only on a policy-blocked Git revert",
+  "artifact_version": "H2"
+}

@@ -1,0 +1,600 @@
+{
+  "scope": "Replication package file inventory",
+  "files": [
+    {
+      "path": ".gitignore",
+      "bytes": 71,
+      "sha256": "30b3eaf3e695a2cc061a4ac55f5c12ddec272e69aaa8dca835d9ffcbb5cb3c9a"
+    },
+    {
+      "path": "LICENSE_PENDING.txt",
+      "bytes": 381,
+      "sha256": "bf18b6e8dc2b84f29246c44ed670a98bc1341b9b42654facdee8dde1c4a92e0e"
+    },
+    {
+      "path": "README.md",
+      "bytes": 8412,
+      "sha256": "68d2513e86a95cc4618ca15da801fee9b2208f6ea7d0add789cff7720ef7b898"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "bytes": 1034,
+      "sha256": "4a1af344cb13714169d771b2636e39f73e95415fa86af840847a302c36ad8f37"
+    },
+    {
+      "path": "data/sampling_plan.json",
+      "bytes": 128343,
+      "sha256": "0d337d90ddebb3de670df7fa1a66e2acd6f03ccc743949b492c6dd6e195ce475"
+    },
+    {
+      "path": "data/training_pool_1058.json",
+      "bytes": 44697,
+      "sha256": "da6b733d3e9dccca3ad22f7472f9ddec5170670297bdfc6c6f3bf0cbeca69417"
+    },
+    {
+      "path": "docs/ARTIFACT_NOTES.md",
+      "bytes": 5418,
+      "sha256": "9083ef70d5d87180cbca30a80d096c132285e3161573f691062c5ce198f6937d"
+    },
+    {
+      "path": "docs/PACKAGING.md",
+      "bytes": 1115,
+      "sha256": "7a8d4aebf52b5b530f26d25639c77ca9fc7c0752679a250c7e604246890319c9"
+    },
+    {
+      "path": "docs/file_origins.json",
+      "bytes": 4715,
+      "sha256": "d52793e6c9e5059910a5daa1ef3f42656dc3d2f1e74654260aaa8e8ea234c042"
+    },
+    {
+      "path": "examples/package_release.py",
+      "bytes": 2825,
+      "sha256": "a7f26fe3bdf7fbaf0e754712d4c62b5331feea62772a9ba3cf899ef24194006e"
+    },
+    {
+      "path": "examples/run_task.sh",
+      "bytes": 316,
+      "sha256": "a86723a23c03a566393812111499e58329937d3a59bb1f22dff5d3a359537578"
+    },
+    {
+      "path": "examples/serve.sh",
+      "bytes": 941,
+      "sha256": "068786d44d4388aeaf889084f3ebfc24ec46d8ea132d9e4de5cb783ce1b8ad6e"
+    },
+    {
+      "path": "examples/train.sh",
+      "bytes": 246,
+      "sha256": "7262b0222cb5f5d298ab235a861104a450bc7a0b773ec48fcbc48e3aec9b1e88"
+    },
+    {
+      "path": "harnesses/h1/README.md",
+      "bytes": 1198,
+      "sha256": "521f60e5d338cf54f248b50ca55ad27d75fbde99ed8545304bc81056efb91412"
+    },
+    {
+      "path": "harnesses/h1/hooks/budget_submission.py",
+      "bytes": 2149,
+      "sha256": "c6cba2b8c6f97a2b4456d876ce1ca8a5cbe7b97b6cf517b079fecfe44c78ad22"
+    },
+    {
+      "path": "harnesses/h1/hooks/progress_guard.py",
+      "bytes": 1699,
+      "sha256": "7d034c80ea327f398bfeb2ecbcaf4a26b0386e76772682b86339fb5c301d3b40"
+    },
+    {
+      "path": "harnesses/h1/hooks/semantic_review.py",
+      "bytes": 2146,
+      "sha256": "919b45f052c9cdc665f3b69d5aa4834437e74043fbf99db058aa6f7c85a00539"
+    },
+    {
+      "path": "harnesses/h1/hooks/validation_feedback.py",
+      "bytes": 4566,
+      "sha256": "3ad9ae757ae150e9e4efe8c1435fa5463880be61c62e1758ed0fe0aba74acc5e"
+    },
+    {
+      "path": "harnesses/h1/instance_template.md",
+      "bytes": 8888,
+      "sha256": "a282e3aa6ca6ca4147e7799a797e6a06494aef1f32e6b6db7f72c8b551977d97"
+    },
+    {
+      "path": "harnesses/h1/release.json",
+      "bytes": 1273,
+      "sha256": "afb245c795350a550edb4f1da733478baaff1b999bd6333850581801bb38f15b"
+    },
+    {
+      "path": "harnesses/h1/skills.md",
+      "bytes": 6436,
+      "sha256": "41edecdaa533a4f2807fa6e60d0347235d849bbd32d2534f32121d6da26a6cea"
+    },
+    {
+      "path": "harnesses/h1/system_prompt.md",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "harnesses/h1/tools/edit_file.py",
+      "bytes": 11895,
+      "sha256": "a9044755e9211f69465c2209a9980771fd14379c08af022efaa12e20b4be456b"
+    },
+    {
+      "path": "harnesses/h1/tools/grep.py",
+      "bytes": 12094,
+      "sha256": "3996c1ab5aea78136deac390d8bda0b70362322a92cd4df186a121071ca95e40"
+    },
+    {
+      "path": "harnesses/h1/tools/prepare_patch.py",
+      "bytes": 12416,
+      "sha256": "2cc744c333fc5f5d59e02e3cce6eeb2b83939c855f5e7e458efa7827f871f54e"
+    },
+    {
+      "path": "harnesses/h1/tools/read_file.py",
+      "bytes": 9574,
+      "sha256": "73328989d8cba57583b2c6045ba80b7d9cf0c4247bc30da14e9b3d88d0dfbdcf"
+    },
+    {
+      "path": "harnesses/h1/tools/run_check.py",
+      "bytes": 4198,
+      "sha256": "eefe15eb757c273578d0a800f1e0c904171a6ae80eb7656e430b208957223099"
+    },
+    {
+      "path": "harnesses/h1/tools/view_diff.py",
+      "bytes": 11790,
+      "sha256": "dbfba36e9fb675cf88655aaf4ed86ae425eb5b94d06f738043be4432103af64d"
+    },
+    {
+      "path": "harnesses/h1/tools/write_file.py",
+      "bytes": 9271,
+      "sha256": "aed309f9798f0d543c63fc206e641f677eae88ed383e774bef0dcf479b9e6197"
+    },
+    {
+      "path": "harnesses/h2/README.md",
+      "bytes": 1486,
+      "sha256": "358a77ae6a2e17906d41ce15d7709aa87f751a927d9238068b758c5e8455b697"
+    },
+    {
+      "path": "harnesses/h2/hooks/budget_submission.py",
+      "bytes": 2222,
+      "sha256": "072edd25524c2574c0fa4223aa1e9ebf608c23a7d694bf65be83825f4a997424"
+    },
+    {
+      "path": "harnesses/h2/hooks/delivery_evidence.py",
+      "bytes": 9108,
+      "sha256": "40c55e44c7fc9dc0ae31eb20022617bcde4177c3d197832e7e8568e30a797ce2"
+    },
+    {
+      "path": "harnesses/h2/hooks/progress_guard.py",
+      "bytes": 1699,
+      "sha256": "7d034c80ea327f398bfeb2ecbcaf4a26b0386e76772682b86339fb5c301d3b40"
+    },
+    {
+      "path": "harnesses/h2/hooks/recovery_hint.py",
+      "bytes": 2129,
+      "sha256": "0a594f85d300d9437118824442977a5beac437a9eabdf2df862f9b35034e2278"
+    },
+    {
+      "path": "harnesses/h2/hooks/validation_feedback.py",
+      "bytes": 3549,
+      "sha256": "9556769654f682b93ba4d2f1199935cfce946511434980afd1f34c4108fee0b8"
+    },
+    {
+      "path": "harnesses/h2/instance_template.md",
+      "bytes": 9660,
+      "sha256": "af2153e75721a151bc0d8f2c2d1a8d57737ac33b9dc1ad9766271803e692feae"
+    },
+    {
+      "path": "harnesses/h2/release.json",
+      "bytes": 1492,
+      "sha256": "0aa474fb9da74adbb4e8f4a1a3aa48adb81f5eebf38a8785c94facc287827454"
+    },
+    {
+      "path": "harnesses/h2/skills.md",
+      "bytes": 6736,
+      "sha256": "2898bd50e509046ee8107ee85406d2d24863b5e871de0363240abe0d2a14b0c6"
+    },
+    {
+      "path": "harnesses/h2/system_prompt.md",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "harnesses/h2/tools/edit_file.py",
+      "bytes": 11895,
+      "sha256": "a9044755e9211f69465c2209a9980771fd14379c08af022efaa12e20b4be456b"
+    },
+    {
+      "path": "harnesses/h2/tools/grep.py",
+      "bytes": 12094,
+      "sha256": "3996c1ab5aea78136deac390d8bda0b70362322a92cd4df186a121071ca95e40"
+    },
+    {
+      "path": "harnesses/h2/tools/prepare_patch.py",
+      "bytes": 21067,
+      "sha256": "6bc4c02ab8d15ffbc1bfb74f935208cbbe5c4ea79c6dfea45a23162f486a28c4"
+    },
+    {
+      "path": "harnesses/h2/tools/read_file.py",
+      "bytes": 9574,
+      "sha256": "73328989d8cba57583b2c6045ba80b7d9cf0c4247bc30da14e9b3d88d0dfbdcf"
+    },
+    {
+      "path": "harnesses/h2/tools/restore_file.py",
+      "bytes": 6544,
+      "sha256": "1c8e0fd3b94ea3298565c6c4e42b2fb3247f5ca6070253448382719f17b94feb"
+    },
+    {
+      "path": "harnesses/h2/tools/run_check.py",
+      "bytes": 4198,
+      "sha256": "eefe15eb757c273578d0a800f1e0c904171a6ae80eb7656e430b208957223099"
+    },
+    {
+      "path": "harnesses/h2/tools/view_diff.py",
+      "bytes": 11790,
+      "sha256": "dbfba36e9fb675cf88655aaf4ed86ae425eb5b94d06f738043be4432103af64d"
+    },
+    {
+      "path": "harnesses/h2/tools/write_file.py",
+      "bytes": 9271,
+      "sha256": "aed309f9798f0d543c63fc206e641f677eae88ed383e774bef0dcf479b9e6197"
+    },
+    {
+      "path": "models/update45/.gitattributes",
+      "bytes": 1570,
+      "sha256": "34448b82c17d60fec9b65b1f093c115ddbaadc04beb1b0140b6bfed2e012a930"
+    },
+    {
+      "path": "models/update45/LICENSE",
+      "bytes": 11544,
+      "sha256": "bbedc3fda3305820b977265f01b8619d87570a6739de3a5582c3464840f1e57a"
+    },
+    {
+      "path": "models/update45/README.md",
+      "bytes": 1452,
+      "sha256": "74bc216c628be97d52da1a44c876f260644e4d56d6830750b947cc9fcf24ad0f"
+    },
+    {
+      "path": "models/update45/chat_template.jinja",
+      "bytes": 7756,
+      "sha256": "a4aee8afcf2e0711942cf848899be66016f8d14a889ff9ede07bca099c28f715"
+    },
+    {
+      "path": "models/update45/config.json",
+      "bytes": 3126,
+      "sha256": "d0883072e01861ed0b2d47be3c16c36a8e81c224c7ffaa310c6558fb3f932b05"
+    },
+    {
+      "path": "models/update45/export_manifest.json",
+      "bytes": 607,
+      "sha256": "67d34429b91ad4c46e3b101ddd8ce925e610b04a207df095d73156829c5c1e7f"
+    },
+    {
+      "path": "models/update45/merges.txt",
+      "bytes": 3353259,
+      "sha256": "a9d356d7bdf1ef4949e3e748e95b8e10ad9d4e2e838eddc38a0a7b6b94d1db8d"
+    },
+    {
+      "path": "models/update45/model-00000-of-00004.safetensors",
+      "bytes": 5272245656,
+      "sha256": "d1f1a08d9d3b098b09a5258c91c4623ea4571cb95fe74deb35b274dfb592a35e"
+    },
+    {
+      "path": "models/update45/model-00001-of-00004.safetensors",
+      "bytes": 3976207848,
+      "sha256": "eac208dfcd4095346debc9140dab35b00de8455eab076cb127bab7254f14b322"
+    },
+    {
+      "path": "models/update45/model-00002-of-00004.safetensors",
+      "bytes": 5277764568,
+      "sha256": "a7b1a1332283f9bb78d1d78a676156f1a8f95cfc9b39bb0428e032c87f5eb34e"
+    },
+    {
+      "path": "models/update45/model-00003-of-00004.safetensors",
+      "bytes": 4780085840,
+      "sha256": "a74c9a90f611bc0a52a15968cf69e8d388ff6ac4d0e7373c9546d9c294f02c97"
+    },
+    {
+      "path": "models/update45/model.safetensors.index.json",
+      "bytes": 70357,
+      "sha256": "149fee2d9d4a15f05436d25c5e65bb0747ab55c550ab244592f18072d4f984c9"
+    },
+    {
+      "path": "models/update45/preprocessor_config.json",
+      "bytes": 390,
+      "sha256": "27225450ac9c6529872ee1924fcb0962ff5634834f817040f444118116f4e516"
+    },
+    {
+      "path": "models/update45/tokenizer.json",
+      "bytes": 12807982,
+      "sha256": "5f9e4d4901a92b997e463c1f46055088b6cca5ca61a6522d1b9f64c4bb81cb42"
+    },
+    {
+      "path": "models/update45/tokenizer_config.json",
+      "bytes": 16710,
+      "sha256": "316230d6a809701f4db5ea8f8fc862bc3a6f3229c937c174e674ff3ca0a64ac8"
+    },
+    {
+      "path": "models/update45/video_preprocessor_config.json",
+      "bytes": 385,
+      "sha256": "7768af27c1fafa9cc9011c1dc20067e03f8915e03b63504550e11d5066986d13"
+    },
+    {
+      "path": "models/update45/vocab.json",
+      "bytes": 6722759,
+      "sha256": "ce99b4cb2983d118806ce0a8b777a35b093e2000a503ebde25853284c9dfa003"
+    },
+    {
+      "path": "prompts/harness_proposal.md",
+      "bytes": 11024,
+      "sha256": "c5abed1bf853d29b160378a294e9300b07db002f07c056a07d8ed7659d6872cc"
+    },
+    {
+      "path": "prompts/skill_bank.md",
+      "bytes": 1355,
+      "sha256": "1fa76c2ecafc38e209d0347949c9c41ac53e6f7fd9433cb6a3cc669b04ca01f0"
+    },
+    {
+      "path": "prompts/skill_hint.md",
+      "bytes": 965,
+      "sha256": "a2e08ef241d75027a8d0b77aa352e7d5adb05120fcaf8eee3b3a89c3f3a5452d"
+    },
+    {
+      "path": "prompts/skill_mechanism.md",
+      "bytes": 8945,
+      "sha256": "23deb4870332e1fc1b31efbf6e9827e5132c03c1333da0aaac4c2cb1e34a2f72"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 247,
+      "sha256": "cf7609b64613023588cfaa682167daf1c009dfba68380181866ab195686bb580"
+    },
+    {
+      "path": "src/harnessadapt/__init__.py",
+      "bytes": 61,
+      "sha256": "720dfa76b8a6423249806fd4b9b5d7737bc2e6ba2ac14892eefebd9dab349a47"
+    },
+    {
+      "path": "src/harnessadapt/evolution/__init__.py",
+      "bytes": 123,
+      "sha256": "094be40479fd512a11ca1b81228333cd04d536f3159396b8aa249aa397f147d9"
+    },
+    {
+      "path": "src/harnessadapt/evolution/analyze.py",
+      "bytes": 5835,
+      "sha256": "dda0598ccf4ad0563002a60a7bf428f2343580be1a36513ea19c0bcc5fb1a30e"
+    },
+    {
+      "path": "src/harnessadapt/evolution/audit_results.py",
+      "bytes": 6022,
+      "sha256": "2280bb1b6698c6c6d4f1194eb4cbe6466837d60004cf9023593eaa4750fe8e6e"
+    },
+    {
+      "path": "src/harnessadapt/evolution/common.py",
+      "bytes": 3568,
+      "sha256": "078a344a81c0ba6f445b9b4ac0cb1574bd9c9c5cc7c5ef58886403b08b152767"
+    },
+    {
+      "path": "src/harnessadapt/evolution/controller.py",
+      "bytes": 12049,
+      "sha256": "bbcebea836cfc9b6741fac60ca7849f6fc5e285b8114cb272c67039b5c2d355b"
+    },
+    {
+      "path": "src/harnessadapt/evolution/evaluate.py",
+      "bytes": 8699,
+      "sha256": "a8b375c509d70c6a17ea7c4a1a5da30d0bc12a99a098dae0ac28f0d24b101ff7"
+    },
+    {
+      "path": "src/harnessadapt/evolution/prepare.py",
+      "bytes": 3277,
+      "sha256": "2bbb66141776af28a27981309dc7b418e1ac827972c4cf8c9e9521c97f4dabf5"
+    },
+    {
+      "path": "src/harnessadapt/evolution/proposal_sources/inspect_windows.py",
+      "bytes": 4116,
+      "sha256": "85cd88ca418efc3bd17bdd8c6f98dadcf4766e2f99eb18575d9e7b04d433c10d"
+    },
+    {
+      "path": "src/harnessadapt/evolution/proposal_sources/inspection_checkpoint.py",
+      "bytes": 1351,
+      "sha256": "43fa82e00b623a86baaba412d5a3588501c153ea8f287023b3919e8e8817e3dc"
+    },
+    {
+      "path": "src/harnessadapt/evolution/propose.py",
+      "bytes": 7110,
+      "sha256": "87df812e9b73f25255fca7a7d5f115bffd5677fc92f023d6b2525ba409eb023d"
+    },
+    {
+      "path": "src/harnessadapt/evolution/report.py",
+      "bytes": 3846,
+      "sha256": "3349204930c29b28b93b65871568f28fe3c0a17ccea96bf8847bddb19a629d59"
+    },
+    {
+      "path": "src/harnessadapt/model_utils.py",
+      "bytes": 2415,
+      "sha256": "398e9076e68f46256d8ebe08cc66957a07ac06567bba06ee341867dd461a28a9"
+    },
+    {
+      "path": "src/harnessadapt/policy.py",
+      "bytes": 26170,
+      "sha256": "010a19fabd053b9953dd993e0415d02605fd2716d38178cbf74766152ac8f9a8"
+    },
+    {
+      "path": "src/harnessadapt/run_task.py",
+      "bytes": 9043,
+      "sha256": "b9d6358b46485a4dbe1cefaf53ba28ff6a000ff267f560bd6927d2abe1f3e835"
+    },
+    {
+      "path": "src/harnessadapt/runtime.py",
+      "bytes": 25699,
+      "sha256": "54ff0ede0f823454dc98a7a02fc795c9da25de4aee557c66b41f5a099df3928e"
+    },
+    {
+      "path": "src/harnessadapt/training/__init__.py",
+      "bytes": 100,
+      "sha256": "29dc6d18edadf1c3950b6f87979da91d161696879fd7b5f0c5720d269bb31fb7"
+    },
+    {
+      "path": "src/harnessadapt/training/__main__.py",
+      "bytes": 12434,
+      "sha256": "f49bacc2bddf23e92ad38ecd55b86d23943a12b2b390d37a015688a1f310e55c"
+    },
+    {
+      "path": "src/harnessadapt/training/actor.py",
+      "bytes": 2491,
+      "sha256": "6c3b2a7b32d5b36d58e2bbfc56e9d11c5ea89ada9d9f75bbf69bd2641d084543"
+    },
+    {
+      "path": "src/harnessadapt/training/config.py",
+      "bytes": 6243,
+      "sha256": "09f4d725c59abf46df86090288d66c3da8e7835ad1c2d32af05d72f77eb6badc"
+    },
+    {
+      "path": "src/harnessadapt/training/continuation.py",
+      "bytes": 4384,
+      "sha256": "be872b115acde2463880bd29438f133deda3f76d84bf4a79513aeb16da030bbe"
+    },
+    {
+      "path": "src/harnessadapt/training/driver.py",
+      "bytes": 6013,
+      "sha256": "a2a7a5189683b227039959ab19c83409f8d72d885c43cb2289dabcdbe2c74089"
+    },
+    {
+      "path": "src/harnessadapt/training/evolved_runtime.py",
+      "bytes": 14296,
+      "sha256": "30c881b89ce3c6b7b38015b8e1d5e3b73da51b2231ce7fa757f7b6047622c71d"
+    },
+    {
+      "path": "src/harnessadapt/training/fixed_harness.py",
+      "bytes": 1907,
+      "sha256": "603e0075dec1d96768b2ae30b2a52ee017faeac5bf8ed0e5c898fc676f0ba3a6"
+    },
+    {
+      "path": "src/harnessadapt/training/phase_runtime.py",
+      "bytes": 5455,
+      "sha256": "dd30d26b48f9069db5184b1979291bd53f0407fde9f176949c9e7c161d08bd03"
+    },
+    {
+      "path": "src/harnessadapt/training/provenance.py",
+      "bytes": 1414,
+      "sha256": "aef9080f8bd3b63fb156857894c08ceb7746a10d19dbd11ab9dd603b02b21834"
+    },
+    {
+      "path": "src/harnessadapt/training/recipes.py",
+      "bytes": 7405,
+      "sha256": "eb674eeb6f87ee473d1f3790c5a58ad028fef67abad69ef9632f4691fbbeae29"
+    },
+    {
+      "path": "src/harnessadapt/training/resource_guard.py",
+      "bytes": 3061,
+      "sha256": "34bab9c57a8e138657735e20725f9719d564aebaaf20e2cf6f911dafa0e1ffad"
+    },
+    {
+      "path": "src/harnessadapt/training/rollout.py",
+      "bytes": 14062,
+      "sha256": "d318363bb53c6222db7c28d08114d5c15e1500ae35690d7223e7b0ee266d2d12"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/__init__.py",
+      "bytes": 82,
+      "sha256": "4acd84529e195b64e01afecf8fde626abdd61775e6525577db9a33c53707f15b"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/checkpoint_consistency.py",
+      "bytes": 8037,
+      "sha256": "e88d49532413f37f0202ae0989af24c4b4e1a54e03c74266d6452c2ebcc6b675"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/checkpoint_retention.py",
+      "bytes": 6710,
+      "sha256": "661e81e814fa01235f63ac2c92761680a0d0efcb1265ba21e4c1e19bc7d153a3"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/curriculum.py",
+      "bytes": 2094,
+      "sha256": "ba6b0edb1b044d92201f2f2bb8fc9c6ccbca4578958e160a580732f5f06f18ec"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/fast_model.py",
+      "bytes": 10635,
+      "sha256": "545f856524d79cb56b54f5a038036d868c12a0e9470f6f9dbd695708aa7ee692"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/generate.py",
+      "bytes": 108435,
+      "sha256": "5c4fa404b062e77d387649998adeb592902d513ef3cd8126e15c23d78b58cb66"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/health_monitor.py",
+      "bytes": 20583,
+      "sha256": "dad35b2da67a91072b7cb57b4aaea220dcde662f8035e4fa46fd540f4efc65dd"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/monitoring.py",
+      "bytes": 37792,
+      "sha256": "0e9606b8f7dc1e19455107253dcdd48bdd70f3015e467d94acf512a5c7ca9fe2"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/patches/sglang/weight_checker.py",
+      "bytes": 10507,
+      "sha256": "2e9b7442f5ba1a2d1ab42ec5b804ba4b51bf28fca9be0adaf7a6dd77dfe73d4d"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/patches/slime/rollout.py",
+      "bytes": 69123,
+      "sha256": "aa7e961ddb54a757c8dd043ea21e7a29008038970d094dc07f2f0820c1f4ad3c"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/recovery_adapter_process.py",
+      "bytes": 13531,
+      "sha256": "efc2902b30c3df5f6e97fe275fe3a1f7889b28e04fd9ea0035cacf788299ab48"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/recovery_segments.py",
+      "bytes": 3584,
+      "sha256": "b9abec680776bea40aedb9b60e900b9c760afecdc6c09f4fd32bb5d6236cf6c8"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/recovery_trajectory.py",
+      "bytes": 1658,
+      "sha256": "f585565ed4d101ff8fb4f409bbafc846776e545e262c09b01608e423d41b54a6"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/reward_processing.py",
+      "bytes": 5901,
+      "sha256": "f3de5d693013169462504614e60cb9f6cd70e34ce25365d6412276adc504d6c9"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/train.sh",
+      "bytes": 9889,
+      "sha256": "16e275e10ee58609a5776d1f70a947beecb2d591a3047eeece5d55c167a67f86"
+    },
+    {
+      "path": "src/harnessadapt/training/runtime/trajectory_markdown.py",
+      "bytes": 7431,
+      "sha256": "23826e17e543bf944cbb003d80eedbceb860cfbab0b26ad86301162d0461eeaa"
+    },
+    {
+      "path": "src/harnessadapt/training/sampling.py",
+      "bytes": 6421,
+      "sha256": "3677dcfbc8c1f70db01cecf7f6b21b8839fa9164cf947c574c95831ca3b98304"
+    },
+    {
+      "path": "src/harnessadapt/training/static_rollout.py",
+      "bytes": 1854,
+      "sha256": "c52ba7287e5ea0acf3558daecb879a8dbbfb0b1cb5af36bfba250d0389737b74"
+    },
+    {
+      "path": "src/harnessadapt/training/task_pool.py",
+      "bytes": 4089,
+      "sha256": "593f419dd53e4ec05376a103eb8bc57165bc44481792883749caeb7d48e4d89d"
+    },
+    {
+      "path": "src/harnessadapt/training/teacher.py",
+      "bytes": 26018,
+      "sha256": "962e4c9b2ba4f5e32c7afa41385f5d72aa5752f045c0f657af0ea4b93909de1d"
+    },
+    {
+      "path": "src/harnessadapt/training/verified.py",
+      "bytes": 3057,
+      "sha256": "9b54a4ecfa93adf11c2d3a3e8077f7e2097e0df4d670d170fb0cb71e25774d74"
+    }
+  ]
+}

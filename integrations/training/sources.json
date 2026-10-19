@@ -1,0 +1,17 @@
+{
+  "slime": {
+    "url": "https://github.com/THUDM/slime.git",
+    "revision": "20c6dbe0746d76d99dbc754afcf389cfdc8ebe71",
+    "patch": "slime-agent.patch",
+    "patch_sha256": "fa13397b6e50aa04e78ce7e2852dd0061535621b06a8f05ef1332aa6c6df2206"
+  },
+  "R2E-Gym": {
+    "url": "https://github.com/R2E-Gym/R2E-Gym.git",
+    "revision": "207c0914139b29f10e391405515d7d461ff93d57"
+  },
+  "base_model": {
+    "repo_id": "Qwen/Qwen3.5-9B",
+    "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a"
+  },
+  "note": "Revisions recovered from local source HEADs and HF download metadata. Slime agent changes are included separately; rollout.py and SGLang weight_checker.py are overlaid by the training launcher."
+}

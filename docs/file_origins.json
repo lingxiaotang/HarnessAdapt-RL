@@ -1,0 +1,183 @@
+{
+  "harness_files": [
+    {
+      "file": "harnesses/h1/hooks/budget_submission.py",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/hooks/progress_guard.py",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/hooks/semantic_review.py",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/hooks/validation_feedback.py",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/instance_template.md",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/release.json",
+      "source_component": "H1",
+      "modification": "publication metadata aligned with H1"
+    },
+    {
+      "file": "harnesses/h1/skills.md",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/system_prompt.md",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/tools/edit_file.py",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/tools/grep.py",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/tools/prepare_patch.py",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/tools/read_file.py",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/tools/run_check.py",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/tools/view_diff.py",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h1/tools/write_file.py",
+      "source_component": "H1",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/hooks/budget_submission.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/hooks/delivery_evidence.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/hooks/progress_guard.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/hooks/recovery_hint.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/hooks/validation_feedback.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/instance_template.md",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/release.json",
+      "source_component": "H2",
+      "modification": "publication metadata aligned with H2"
+    },
+    {
+      "file": "harnesses/h2/skills.md",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/system_prompt.md",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/tools/edit_file.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/tools/grep.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/tools/prepare_patch.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/tools/read_file.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/tools/restore_file.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/tools/run_check.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/tools/view_diff.py",
+      "source_component": "H2",
+      "modification": "none"
+    },
+    {
+      "file": "harnesses/h2/tools/write_file.py",
+      "source_component": "H2",
+      "modification": "none"
+    }
+  ],
+  "prompts": [
+    "prompts/skill_hint.md",
+    "prompts/skill_mechanism.md",
+    "prompts/skill_bank.md",
+    "prompts/harness_proposal.md"
+  ],
+  "data_schedules": [
+    "data/training_pool_1058.json",
+    "data/sampling_plan.json"
+  ],
+  "training_and_evolution_modules": [
+    "src/harnessadapt/training/",
+    "src/harnessadapt/evolution/"
+  ],
+  "model_checkpoint": {
+    "directory": "models/update45",
+    "paper_artifact": "Final trained HarnessAdapt-RL policy checkpoint (theta_T, update 45)"
+  },
+  "runtime": "Deployment and training runtime for the evolved harnesses (H1 and H2), Slime GRPO training loop, and Mini-SWE command policy."
+}

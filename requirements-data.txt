@@ -1,0 +1,4 @@
+# Host-side dataset preparation; the GPU training stack is supplied separately.
+datasets==2.19.2
+pyarrow==16.1.0
+swebench==3.0.2

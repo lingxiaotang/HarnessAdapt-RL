@@ -1,0 +1,332 @@
+diff --git a/slime/agent/adapters/openai.py b/slime/agent/adapters/openai.py
+index 4158d02f..790a18fd 100644
+--- a/slime/agent/adapters/openai.py
++++ b/slime/agent/adapters/openai.py
+@@ -34,6 +34,8 @@ from slime.agent.parsing import ParsedModelOutput
+ 
+ logger = logging.getLogger(__name__)
+ 
++_FORMAT_ERROR_MESSAGE_NAME = "slime_format_error_recovery"
++
+ 
+ class OpenAIAdapter(BaseAdapter):
+     """OpenAI Chat-Completions-compatible HTTP adapter: wire translation and
+@@ -123,7 +125,17 @@ def _translate_messages(messages: list[dict]) -> list[dict]:
+             role = "system"
+ 
+         if role in {"system", "user"}:
+-            translated.append({"role": role, "content": flatten_content(content)})
++            translated_message: dict[str, Any] = {
++                "role": role,
++                "content": flatten_content(content),
++            }
++            # Mini-SWE's format-error recovery has to replay a normalized copy
++            # of the rejected assistant response.  Preserve its explicit wire
++            # marker as manager-only metadata; do not render the marker into the
++            # model prompt.
++            if role == "user" and msg.get("name") == _FORMAT_ERROR_MESSAGE_NAME:
++                translated_message["extra"] = {"interrupt_type": "FormatError"}
++            translated.append(translated_message)
+         elif role == "tool":
+             # drop tool_call_id -- wire-only correlation field; see docstring
+             translated.append({"role": "tool", "content": flatten_content(content)})
+diff --git a/slime/agent/trajectory.py b/slime/agent/trajectory.py
+index 3f478002..7039f4ad 100644
+--- a/slime/agent/trajectory.py
++++ b/slime/agent/trajectory.py
+@@ -188,10 +188,17 @@ class _SampleBuilder:
+         if drift == 0:
+             return DriftKind.CLEAN
+ 
+-        # REALIGN only heals drift that falls inside the most-recent response span
+-        # (and is short); divergence anywhere earlier, or an empty builder, forks.
++        # REALIGN heals drift inside the most-recent response span, plus the one
++        # untrained generation-boundary token immediately before it.  Some chat
++        # templates re-render that boundary differently when an assistant reply
++        # is echoed into history; masking the boundary together with the prior
++        # response is loss-safe.  Divergence any earlier still forks.
+         start = self.last_response_start_idx
+-        if start is not None and realign_at >= start and len(turn.output_ids) < self._fork_threshold:
++        if (
++            start is not None
++            and realign_at >= max(0, start - 1)
++            and len(turn.output_ids) < self._fork_threshold
++        ):
+             return DriftKind.REALIGN
+         return DriftKind.FORK
+ 
+@@ -229,10 +236,18 @@ class _SampleBuilder:
+         ``prompt_ids`` as loss_mask=0: the drifted tokens carry no signal, and re-appending
+         from the prompt keeps the builder contiguous. Earlier turns are untouched."""
+         response_start = self.last_response_start_idx
+-        tail = prompt_ids[response_start:]
+-        self.tokens[response_start:] = tail
+-        self.loss_mask[response_start:] = [0] * len(tail)
+-        self.logprobs[response_start:] = [0.0] * len(tail)
++        assert response_start is not None
++        # Include a drifted generation-boundary token when the divergence starts
++        # exactly one position before the response span.  For ordinary in-span
++        # drift this remains the original response_start behavior.
++        align_start = min(
++            response_start,
++            _common_prefix_len(self.tokens, prompt_ids),
++        )
++        tail = prompt_ids[align_start:]
++        self.tokens[align_start:] = tail
++        self.loss_mask[align_start:] = [0] * len(tail)
++        self.logprobs[align_start:] = [0.0] * len(tail)
+ 
+     def _append_tokens(self, ids: list[int], *, loss_mask: int, logprobs: list[float] | None = None) -> None:
+         self.tokens.extend(ids)
+@@ -314,6 +329,7 @@ class TrajectoryManager:
+         root = self._trees.setdefault(sid, MessageNode())
+ 
+         node, depth = self._find_mount_point(root, prompt_messages)
++        self._demote_matched_format_error_turns(node, prompt_messages, depth)
+         node, depth = self._try_merge_assistant_rewrite(sid, node, prompt_messages, depth)
+         node = self._mount_prompt_messages(node, prompt_messages[depth:])
+         self._attach_assistant_leaf(sid, node, turn=turn, response_message=response_message, metadata=metadata)
+@@ -340,14 +356,40 @@ class TrajectoryManager:
+             return []
+ 
+         samples: list[Sample] = []
+-        for routing_leaf in root.leaves():
+-            if routing_leaf.is_root:
+-                continue
++        routing_leaves = [leaf for leaf in root.leaves() if not leaf.is_root]
++        leaf_sample_counts: list[int] = []
++        for routing_leaf in routing_leaves:
+             chain = routing_leaf.path_from_root()
+-            samples.extend(
+-                self._chain_to_samples(
+-                    chain, base_sample=base_sample, extra_metadata=extra_metadata, max_sample_tokens=max_sample_tokens
+-                )
++            leaf_samples = self._chain_to_samples(
++                chain, base_sample=base_sample, extra_metadata=extra_metadata, max_sample_tokens=max_sample_tokens
++            )
++            leaf_sample_counts.append(len(leaf_samples))
++            samples.extend(leaf_samples)
++
++        if len(samples) > 1:
++            logger.warning(
++                "get_trajectory(sid=%s): emitted %d samples from %d routing "
++                "leaves (samples_per_leaf=%s); generated_turns_per_leaf=%s; "
++                "demoted_format_errors_per_leaf=%s",
++                sid,
++                len(samples),
++                len(routing_leaves),
++                leaf_sample_counts,
++                [
++                    sum(
++                        node.role == "assistant" and node.turn is not None
++                        for node in leaf.path_from_root()
++                    )
++                    for leaf in routing_leaves
++                ],
++                [
++                    sum(
++                        (node.metadata.get("demoted_response") or {}).get("reason")
++                        == "format_error_recovery"
++                        for node in leaf.path_from_root()
++                    )
++                    for leaf in routing_leaves
++                ],
+             )
+ 
+         for s in samples:
+@@ -363,6 +405,63 @@ class TrajectoryManager:
+ 
+     # -------------------- internals ----------------------------------------
+ 
++    @staticmethod
++    def _is_format_error_feedback(message: dict[str, Any] | None) -> bool:
++        return bool(
++            message
++            and message.get("role") == "user"
++            and (message.get("extra") or {}).get("interrupt_type") == "FormatError"
++        )
++
++    def _demote_matched_format_error_turns(
++        self,
++        node: MessageNode,
++        prompt_messages: list[dict[str, Any]],
++        depth: int,
++    ) -> None:
++        """Stop training assistant turns explicitly rejected by the harness.
++
++        Usually the replayed assistant message exactly matches the manager node,
++        so ``_try_merge_assistant_rewrite`` is never entered.  Its tokenized
++        replay may still differ from the raw sampled tokens (especially for a
++        malformed function call), which would later split one episode into
++        multiple Samples.  A following, explicitly marked FormatError feedback
++        proves that the assistant turn was rejected and should be routing-only.
++        """
++        chain = node.path_from_root()
++        for index in range(1, len(chain)):
++            assistant = chain[index - 1]
++            feedback = chain[index]
++            if (
++                assistant.role == "assistant"
++                and assistant.turn is not None
++                and self._is_format_error_feedback(feedback.message)
++            ):
++                self._demote_format_error_turn(assistant)
++
++        # The usual first recovery request matches through the rejected
++        # assistant leaf, while its new feedback message starts at ``depth``.
++        if (
++            node.role == "assistant"
++            and node.turn is not None
++            and depth < len(prompt_messages)
++            and self._is_format_error_feedback(prompt_messages[depth])
++        ):
++            self._demote_format_error_turn(node)
++
++    @staticmethod
++    def _demote_format_error_turn(node: MessageNode) -> None:
++        turn = node.turn
++        if turn is None:
++            return
++        node.metadata["demoted_response"] = {
++            "turn_index": node.turn_index,
++            "response_tokens": len(turn.output_ids),
++            "reason": "format_error_recovery",
++        }
++        node.turn = None
++        node.turn_index = None
++
+     def _find_mount_point(self, root: MessageNode, messages: list[dict[str, Any]]) -> tuple[MessageNode, int]:
+         """Walk down the tree matching each message by role and dict equality (==),
+         returning the deepest node that still matches and where to mount the rest."""
+@@ -388,7 +487,7 @@ class TrajectoryManager:
+         prompt_messages: list[dict[str, Any]],
+         depth: int,
+     ) -> tuple[MessageNode, int]:
+-        """Merge a short assistant-rewrite onto its node instead of forking.
++        """Merge an assistant-rewrite onto its node instead of forking.
+ 
+         A harness may replay a prior assistant message slightly re-rendered (e.g.
+         whitespace) in a later prompt. It no longer matches the node we generated,
+@@ -397,19 +496,25 @@ class TrajectoryManager:
+         node's message in place and stop training its generated content (demote to
+         routing-only), so only the live branch trains. This only applies below
+         ``fork_threshold``: a long abandoned response carries enough real signal
+-        to fork and train standalone.
++        to fork and train standalone.  The exception is an explicitly marked
++        format-error recovery: that response was rejected by the harness, so it
++        is routing context rather than an independent trainable branch even when
++        it is long.
+ 
+         Forking is always safe (a rewrite mounts as routing-only); this is purely
+         a cleanup. So we merge only when the mount point has exactly one assistant
+-        child that is a leaf, generated (``turn`` set), and short (response <
+-        ``fork_threshold``), and fork otherwise, since absorbing destroys a
+-        generated TurnRecord irreversibly.
++        child that is a leaf and generated (``turn`` set).  Ordinary rewrites
++        must also be short (response < ``fork_threshold``); marked format-error
++        recoveries bypass only that length gate.
+         """
+-        if self._fork_threshold <= 0:
+-            return node, depth  # feature off
+         if depth >= len(prompt_messages) or prompt_messages[depth].get("role") != "assistant":
+             return node, depth  # genuine non-assistant history fork -> leave it
+ 
++        next_message = prompt_messages[depth + 1] if depth + 1 < len(prompt_messages) else {}
++        is_format_error_recovery = self._is_format_error_feedback(next_message)
++        if self._fork_threshold <= 0 and not is_format_error_recovery:
++            return node, depth  # ordinary rewrite-merge feature off
++
+         asst_children = [c for c in node.children if c.role == "assistant"]
+         if len(asst_children) != 1:
+             if len(asst_children) > 1:
+@@ -426,13 +531,21 @@ class TrajectoryManager:
+         if (
+             rewritten_node.children
+             or rewritten_node.turn is None
+-            or len(rewritten_node.turn.output_ids) >= self._fork_threshold
++            or (
++                len(rewritten_node.turn.output_ids) >= self._fork_threshold
++                and not is_format_error_recovery
++            )
+         ):
+             return node, depth
+ 
+         rewritten_node.metadata["merged_rewrite"] = {
+             "abandoned_turn_index": rewritten_node.turn_index,
+             "abandoned_response_tokens": len(rewritten_node.turn.output_ids),
++            "reason": (
++                "format_error_recovery"
++                if is_format_error_recovery
++                else "short_assistant_rewrite"
++            ),
+         }
+         rewritten_node.turn = None
+         rewritten_node.turn_index = None
+@@ -476,18 +589,65 @@ class TrajectoryManager:
+         is trained only on the first leaf to claim it; later leaves re-emit it
+         as loss_mask=0 context so the shared prefix isn't double-counted.
+         """
+-        asst_nodes = [n for n in chain if n.role == "assistant" and n.turn is not None]
++        indexed_asst_nodes = [
++            (index, node)
++            for index, node in enumerate(chain)
++            if node.role == "assistant" and node.turn is not None
++        ]
++        asst_nodes = [node for _, node in indexed_asst_nodes]
+ 
+         builders: list[_SampleBuilder] = []
+-        for asst_node in asst_nodes:
++        previous_chain_index = -1
++        for asst_index, (chain_index, asst_node) in enumerate(indexed_asst_nodes):
+             trained = not asst_node.response_trained
+             asst_node.response_trained = True
++            crossed_format_error_recovery = any(
++                (
++                    (candidate.metadata.get("demoted_response") or {}).get("reason")
++                    == "format_error_recovery"
++                    or (candidate.metadata.get("merged_rewrite") or {}).get("reason")
++                    == "format_error_recovery"
++                )
++                for candidate in chain[previous_chain_index + 1 : chain_index]
++            )
+ 
+             if not builders or (kind := builders[-1].classify_token_drift(asst_node.turn)) is DriftKind.FORK:
++                if builders:
++                    builder = builders[-1]
++                    realign_at = _common_prefix_len(builder.tokens, asst_node.turn.prompt_ids)
++                    logger.warning(
++                        "trajectory token fork sid=%s turn=%s: held_tokens=%d "
++                        "incoming_prompt=%d incoming_response=%d common_prefix=%d "
++                        "last_response_start=%s previous_turn=%s",
++                        asst_node.metadata.get("sid", ""),
++                        asst_node.turn_index,
++                        len(builder.tokens),
++                        len(asst_node.turn.prompt_ids),
++                        len(asst_node.turn.output_ids),
++                        realign_at,
++                        builder.last_response_start_idx,
++                        next(
++                            (
++                                previous.turn_index
++                                for previous in reversed(asst_nodes[:asst_index])
++                                if previous.turn is not None
++                            ),
++                            None,
++                        ),
++                    )
++                    if crossed_format_error_recovery:
++                        # A format-error replay can force the client to fully
++                        # re-render all prior assistant messages.  Those new
++                        # token IDs cannot be spliced honestly onto the sampled
++                        # pre-error sequence.  Keep only the live post-recovery
++                        # segment, which includes the eventual submission, rather
++                        # than emitting multiple Samples for one GRPO rollout.
++                        builders.clear()
+                 builders.append(_SampleBuilder(self._fork_threshold))
+                 builders[-1].append_turn(asst_node.turn, DriftKind.CLEAN, trained=trained)
+             else:
+                 builders[-1].append_turn(asst_node.turn, kind, trained=trained)
++            previous_chain_index = chain_index
+         return builders
+ 
+     def _chain_to_samples(

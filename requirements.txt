@@ -1,0 +1,7 @@
+# Versions taken from the existing runtime image / local tokenizer environment.
+# This deployment environment has not been installed or tested for publication.
+mini-swe-agent==2.4.5
+litellm==1.92.0
+docker==7.2.0
+transformers==4.47.1
+jinja2==3.1.6
